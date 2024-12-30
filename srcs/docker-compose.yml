@@ -1,0 +1,12 @@
+services:
+  mariadb:
+    build: ./requirements/mariadb/
+    container_name: mariadb
+    env_file: 
+      - .env
+    volumes:
+      - mariadb_data:/var/lib/mysql
+   ## restart: always
+
+volumes:
+  mariadb_data:
