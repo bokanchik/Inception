@@ -5,10 +5,15 @@ RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
      mariadb-server
 
-COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-
 COPY conf/my.cnf /etc/mysql/my.cnf
 
-COPY init.sql /docker-entrypoint-initdb.d/
+RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
 
-CMD ["mysqld"]
+COPY tools/mysql.sh /
+
+RUN chmod 777 ./mysql.sh
+
+EXPOSE 3306
+
+
+CMD [ "./mysql.sh" ]
