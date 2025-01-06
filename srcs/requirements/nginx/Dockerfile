@@ -16,12 +16,6 @@ RUN openssl req -x509 -nodes \
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
-# for testing purpose
-RUN mkdir -p /var/www/html \
- && echo "<h1>Custom Nginx Config is Working!</h1>" > /var/www/html/index.html && \
- chown -R www-data:www-data /var/www/html && \
- chmod -R 755 /var/www/html
-
 # listen only on 443 port
 EXPOSE 443 
 

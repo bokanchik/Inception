@@ -15,4 +15,4 @@ RUN chmod 777 ./mysql.sh
 
 EXPOSE 3306
 
-CMD [ "./mysql.sh" ]
+CMD [ "bash", "./mysql.sh" ]
