@@ -14,7 +14,7 @@ services:
     env_file:
       - .env
     volumes:
-      - wf:/var/www/html
+      - data-wf:/var/www/html
     restart: on-failure
     depends_on:
       - mariadb # will compose mariadb first and remove wordpress before mariadb
@@ -27,22 +27,22 @@ services:
     env_file: 
       - .env
     volumes:
-      - db:/var/lib/mysql
+      - data-db:/var/lib/mysql
     restart: on-failure
     networks:
       - web
 
 volumes:
-  db:
+  data-db:
     driver_opts:
       type: none
       o: bind
-      device: /home/alexandra/data/db
-  wf:
+      device: /home/root_user/data/db
+  data-wf:
     driver_opts:
       type: none
       o: bind
-      device: /home/alexandra/data/wf
+      device: /home/root_user/data/wf
 
 networks:
   web:
