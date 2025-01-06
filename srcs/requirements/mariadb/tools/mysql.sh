@@ -10,7 +10,7 @@ mysql -h localhost -u root -p${DB_ADMIN_PASSWORD} -e"GRANT ALL PRIVILEGES ON \`$
 mysql -h localhost -u root -p${DB_ADMIN_PASSWORD} -e"FLUSH PRIVILEGES;"
 
 # close the service
-mysqladmin -u root -p$SQL_ROOT_PASSWORD shutdown
+mysqladmin -u root -p${DB_ADMIN_PASSWORD} shutdown
 
 # restart the service 
 exec mysqld_safe

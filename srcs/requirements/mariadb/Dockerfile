@@ -7,13 +7,12 @@ RUN apt-get update && apt-get upgrade -y \
 
 COPY conf/my.cnf /etc/mysql/my.cnf
 
-RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
+RUN mkdir -p /var/run/mysqld && chown -R root:root /var/run/mysqld
 
 COPY tools/mysql.sh /
 
 RUN chmod 777 ./mysql.sh
 
 EXPOSE 3306
-
 
 CMD [ "./mysql.sh" ]

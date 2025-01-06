@@ -1,18 +1,49 @@
 services:
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx # defines how to create the Docker image
+    ports:
+      - 443:443
+    restart: on-failure # container have to restart in case of a crash
+    networks:
+      - web
+
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    env_file:
+      - .env
+    volumes:
+      - wf:/var/www/html
+    restart: on-failure
+    depends_on:
+      - mariadb # will compose mariadb first and remove wordpress before mariadb
+    networks:
+      - web
+
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
     env_file: 
       - .env
-    ports:
-      - "3306:3306"
     volumes:
-      - mariadb_data:/var/lib/mysql
-    restart: always
+      - db:/var/lib/mysql
+    restart: on-failure
+    networks:
+      - web
 
 volumes:
-  mariadb_data:
+  db:
     driver_opts:
       type: none
       o: bind
-      device: /home/alexandra/data/mariadb_data
+      device: /home/alexandra/data/db
+  wf:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/alexandra/data/wf
+
+networks:
+  web:
+    driver: bridge
