@@ -3,10 +3,12 @@ services:
     container_name: nginx
     build: ./requirements/nginx # defines how to create the Docker image
     ports:
-      - "443:443"
+      - 443:443
     volumes:
-      - data-wf:/var/www/html
-    restart: on-failure # container have to restart in case of a crash
+      - wf:/var/www/html
+    restart: unless-stopped # container have to restart in case of a crash
+    depends_on:
+      - wordpress
     networks:
       - web
 
@@ -16,12 +18,10 @@ services:
     env_file:
       - .env
     volumes:
-      - data-wf:/var/www/html
+      - wf:/var/www/html
     restart: on-failure
     depends_on:
       - mariadb # will compose mariadb first and remove wordpress before mariadb
-    expose:
-      - "9000"
     networks:
       - web
 
@@ -31,24 +31,24 @@ services:
     env_file: 
       - .env
     volumes:
-      - data-db:/var/lib/mysql
+      - db:/var/lib/mysql
     restart: on-failure
-    expose:
-      - "3306"
     networks:
       - web
 
 volumes:
-  data-db:
+  db:
+    driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/root_user/data/db
-  data-wf:
+      device: ~/data/db
+  wf:
+    driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/root_user/data/wf
+      device: ~/data/wf
 
 networks:
   web:

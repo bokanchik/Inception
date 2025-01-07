@@ -16,7 +16,6 @@ RUN openssl req -x509 -nodes \
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
-# listen only on 443 port
 EXPOSE 443 
 
 CMD [ "nginx", "-g", "daemon off;" ]
