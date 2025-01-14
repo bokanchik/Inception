@@ -4,7 +4,11 @@ services:
     build: ./requirements/nginx # defines how to create the Docker image
     ports:
       - "443:443"
-    restart: on-failure # container have to restart in case of a crash
+    volumes:
+      - wf:/var/www/html
+    restart: unless-stopped # container have to restart in case of a crash
+    depends_on:
+      - wordpress
     networks:
       - web
 
@@ -36,11 +40,13 @@ services:
 
 volumes:
   db:
+    driver: local
     driver_opts:
       type: none
       o: bind
       device: /home/${USER}/data/db
   wf:
+    driver: local
     driver_opts:
       type: none
       o: bind
