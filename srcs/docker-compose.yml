@@ -3,7 +3,7 @@ services:
     container_name: nginx
     build: ./requirements/nginx # defines how to create the Docker image
     ports:
-      - 443:443
+      - "443:443"
     restart: on-failure # container have to restart in case of a crash
     networks:
       - web
@@ -26,6 +26,8 @@ services:
     build: ./requirements/mariadb
     env_file: 
       - .env
+    ports:
+      - "3306:3306"
     volumes:
       - db:/var/lib/mysql
     restart: on-failure
@@ -37,12 +39,12 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/alexandra/data/db
+      device: /home/${USER}/data/db
   wf:
     driver_opts:
       type: none
       o: bind
-      device: /home/alexandra/data/wf
+      device: /home/${USER}/data/wf
 
 networks:
   web:
