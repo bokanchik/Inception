@@ -1,9 +1,46 @@
 #!/bin/bash
 
-sleep 10
+# downloads the PHP Archive 
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar 
 
-wp config create --allow-root \
-	--dbname=$DB_DATABASE \
-	--dbuser=$DB_ADMIN_USER \
-	--dbpass=$DB_ADMIN_PASSWORD \
-	--dbhost=mariadb:3306 --path='/var/www/wordpress'
+chmod +x wp-cli.phar
+
+mv wp-cli.phar /usr/local/bin/wp
+
+# check if WordPress directory is correctly set up
+if [ -e /var/www/html ]; then
+    rm -rf /var/www/html/*
+fi
+mkdir -p /var/www/html
+
+cd /var/www/html
+
+# download WordPress
+wp core download --allow-root --path=/var/www/html
+
+# create a new wp-config.php
+wp config create \
+	--allow-root \
+	--dbname=$DB_NAME \
+	--dbuser=$DB_USER \
+	--dbpass=$DB_PASSWORD \
+	--dbhost=mariadb \
+	--dbprefix=wp_
+
+# install WordPress and create admin (change --url for VM -> albokanc.42.fr)
+wp core install \
+	--allow-root \
+	--skip-email \
+	--title=$WP_NAME \
+	--url=$DOMAIN_NAME \
+	--admin_user=$WP_ROOT_USER \
+	--admin_password=$WP_ROOT_PASS \
+	--admin_email=$WP_ROOT_MAIL
+
+# create a 2nd user
+wp user create $WP_USER $WP_USER_MAIL --role=subscriber --user_pass=$WP_USER_PASS --allow-root
+
+wp theme install twentytwentytwo --allow-root
+
+# start in the foreground mode
+php-fpm -F
