@@ -8,7 +8,7 @@ services:
       - wf:/var/www/html
     restart: unless-stopped # container have to restart in case of a crash
     depends_on:
-      - wordpress
+      - redis
     networks:
       - web
 
@@ -20,8 +20,6 @@ services:
     volumes:
       - wf:/var/www/html
     restart: on-failure
-    expose:
-      - "9000"
     depends_on:
       - mariadb # will compose mariadb first and remove wordpress before mariadb
     networks:
@@ -32,11 +30,24 @@ services:
     build: ./requirements/mariadb
     env_file: 
       - .env
-    ports:
-      - "3306:3306"
     volumes:
       - db:/var/lib/mysql
     restart: on-failure
+    networks:
+      - web
+  
+  redis:
+    container_name: redis
+    build: ./requirements/bonus/redis
+    depends_on:
+      - wordpress
+    ports:
+      - "6379:6379"
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - wf:/var/www/html
     networks:
       - web
 
@@ -46,13 +57,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ~/data/db
+      device: /home/${USER}/data/db
   wf:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ~/data/wf
+      device: /home/${USER}/data/wf
 
 networks:
   web:

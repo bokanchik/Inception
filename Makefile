@@ -1,11 +1,10 @@
-
 all:
 	make build
 	make up
 
 build:
-	mkdir -p ~/data/wf
-	mkdir -p ~/data/db
+	mkdir -p  /home/${USER}/data/wf
+	mkdir -p  /home/${USER}/data/db
 	docker compose -f srcs/docker-compose.yml build
 
 up:
@@ -14,7 +13,10 @@ up:
 down:
 	docker compose -f srcs/docker-compose.yml down
 
+ps:
+	docker compose -f srcs/docker-compose.yml ps
+
 clean:
 	docker compose -f srcs/docker-compose.yml down --rmi all --volumes --remove-orphans
 
-.PHONY : all build up down clean
+.PHONY : all build up down clean ps

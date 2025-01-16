@@ -40,7 +40,17 @@ wp core install \
 # create a 2nd user
 wp user create $WP_USER $WP_USER_MAIL --role=subscriber --user_pass=$WP_USER_PASS --allow-root
 
-wp theme install twentytwentytwo --allow-root
+# configure redis
+wp config set WP_REDIS_HOST redis --allow-root
+wp config set WP_REDIS_PORT 6379 --raw --allow-root
+wp config set WP_CACHE true --raw --allow-root
+wp config set WP_CACHE_KEY_SALT $DOMAIN_NAME --allow-root
+wp config set WP_REDIS_CLIENT phpredis --allow-root
+
+wp plugin install redis-cache --activate --allow-root
+wp plugin update --all --allow-root
+wp redis enable --allow-root
+wp redis status --allow-root
 
 # start in the foreground mode
 php-fpm -F
