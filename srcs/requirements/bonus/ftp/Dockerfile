@@ -1,12 +1,24 @@
 FROM debian:bullseye
 
-RUN apt update
-RUN apt install -y \
-    vsftpd ftp
+RUN apt-get update
+RUN apt-get install -y \
+    vsftpd && apt-get clean
+
+ARG FTP_USER
+ARG FTP_PASSWORD
+
+ENV FTP_USER=${FTP_USER}
+ENV FTP_PASSWORD=${FTP_PASSWORD}
+
+RUN useradd -m -d /home/ftpuser -s /bin/bash ftpuser && \
+    echo "${FTP_USER}:${FTP_PASSWORD}" | chpasswd
+
+RUN mkdir -p /home/ftpuser/wordpress && chown -R ftpuser:ftpuser /home/ftpuser
+
+RUN mkdir -p /var/run/vsftpd/empty
 
 COPY ./conf/vsftpd.conf /etc/vsftpd.conf
-COPY ./tools/ftp.sh .
 
-RUN chmod +x /ftp.sh
+EXPOSE 21
 
-ENTRYPOINT [ "/ftp.sh" ]
+CMD /usr/sbin/vsftpd /etc/vsftpd.conf
