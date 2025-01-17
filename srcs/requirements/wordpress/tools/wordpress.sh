@@ -54,7 +54,5 @@ wp plugin update --all --allow-root
 wp redis enable --allow-root
 # wp redis status --allow-root
 
-
-
 # start in the foreground mode
 php-fpm -F

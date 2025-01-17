@@ -4,11 +4,11 @@ services:
     build: ./requirements/nginx # defines how to create the Docker image
     ports:
       - "443:443"
+    depends_on:
+      - redis
     volumes:
       - wf:/var/www/html
     restart: unless-stopped # container have to restart in case of a crash
-    depends_on:
-      - redis
     networks:
       - web
 
@@ -50,6 +50,21 @@ services:
       - wf:/var/www/html
     networks:
       - web
+  
+  ftp:
+    container_name: ftp
+    build: ./requirements/bonus/ftp
+    restart: on-failure
+    env_file:
+      - .env
+    ports:
+      - "21:21"
+      - "21100-21110:21100-21110"
+    volumes:
+      - wf:/var/www/html
+    networks:
+      - web
+    
 
 volumes:
   db:
