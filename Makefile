@@ -5,6 +5,10 @@ all:
 build:
 	mkdir -p  /home/${USER}/data/wf
 	mkdir -p  /home/${USER}/data/db
+
+	sudo chown -R 1000:1000 /home/root_user/data/wf
+	sudo chmod -R 775 /home/root_user/data/wf
+
 	docker compose -f srcs/docker-compose.yml build
 
 up:
