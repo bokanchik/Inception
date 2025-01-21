@@ -68,7 +68,19 @@ services:
       - wf:/home/ftpuser/wordpress
     networks:
       - web
-    
+  
+  pelican:
+    container_name: pelican
+    build: ./requirements/bonus/pelican
+    depends_on:
+      - wordpress
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - wf:/var/www/html/
+    networks:
+      - web
 
 volumes:
   db:
@@ -76,13 +88,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/db
+      device: /home/alexandra/data/db
   wf:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/wf
+      device: /home/alexandra/data/wf
 
 networks:
   web:

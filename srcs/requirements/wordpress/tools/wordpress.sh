@@ -8,15 +8,15 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 # check if WordPress directory is correctly set up
-if [ -e /var/www/html ]; then
-    rm -rf /var/www/html/*
+if [ -e /var/www/html/wordpress ]; then
+    rm -rf /var/www/html/wordpress/*
 fi
-mkdir -p /var/www/html
+mkdir -p /var/www/html/wordpress
 
-cd /var/www/html
+cd /var/www/html/wordpress
 
 # download WordPress
-wp core download --allow-root --path=/var/www/html
+wp core download --allow-root --path=/var/www/html/wordpress
 
 # create a new wp-config.php
 wp config create \
