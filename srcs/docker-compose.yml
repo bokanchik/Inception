@@ -88,13 +88,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/alexandra/data/db
+      device: /home/root_user/data/db
   wf:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/alexandra/data/wf
+      device: /home/root_user/data/wf
 
 networks:
   web:

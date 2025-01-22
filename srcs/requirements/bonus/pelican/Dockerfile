@@ -12,7 +12,9 @@ RUN python3 -m pip install pelican
 
 COPY tools/setup.sh .
 
-COPY tools/CV.html .
+COPY tools/cv.md .
+
+COPY tools/cv.css .
 
 RUN chmod +x ./setup.sh
 

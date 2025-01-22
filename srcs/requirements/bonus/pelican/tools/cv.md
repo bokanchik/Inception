@@ -1,3 +1,6 @@
+Title: CV
+Author: Alexandra
+Date: 2025-01-22
 ---
 name: Alexandra Bokancha
 header:
