@@ -8,7 +8,7 @@ RUN apt-get install -y \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install pelican
+RUN python3 -m pip install pelican markdown
 
 COPY tools/setup.sh .
 
