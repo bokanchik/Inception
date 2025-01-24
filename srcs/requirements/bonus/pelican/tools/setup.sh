@@ -28,18 +28,19 @@ echo "Pelican project has been created at /var/www/pelican-site."
 echo "Static files will be output to /var/www/html/static-page."
 
 # create content --> 
-mkdir -p  /var/www/pelican-site/content/content/blog/
-mkdir -p  /var/www/pelican-site/themes/css/
+mkdir -p  /var/www/pelican-site/content/pages/
+mkdir -p  /var/www/pelican-site/themes/static/css/
 
-mv /cv.md /var/www/pelican-site/content/blog/
-mv /cv.css /var/www/pelican-site/themes/css/
+mv /cv.md /var/www/pelican-site/content/pages/
+mv /cv.css /var/www/pelican-site/themes/static/css/
 
 # update pelicanconf.py
 cat <<EOF >> /var/www/pelican-site/pelicanconf.py
 OUTPUT_PATH = '/var/www/html/static-page/'
-STATIC_PATHS = ['blog']
+STATIC_PATHS = ['pages', 'static']
 EXTRA_PATH_METADATA = {
-    'blog/cv.md': {'path': 'index.html'},
+    'static/css/cv.css': {'path': 'cv.css'},
+    'pages/cv.md': {'path': 'index.html'},
 }
 ARCHIVES_SAVE_AS = ""
 AUTHOR_SAVE_AS = ""

@@ -4,11 +4,14 @@ FROM debian:bullseye
 RUN apt update
 
 RUN apt-get install -y \
+    git \
     python3 \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install pelican markdown
+RUN python3 -m pip install pelican markdown Jinja2
+
+RUN pip install --upgrade Jinja2
 
 COPY tools/setup.sh .
 
