@@ -6,6 +6,8 @@ services:
       - "443:443"
     depends_on:
       - redis
+      - adminer
+      - pelican
     volumes:
       - wf:/var/www/html
     restart: on-failure # container have to restart in case of a crash
@@ -37,7 +39,8 @@ services:
     restart: on-failure
     networks:
       - web
-  
+
+  ## BONUS
   redis:
     container_name: redis
     build: ./requirements/bonus/redis
@@ -74,8 +77,6 @@ services:
   pelican:
     container_name: pelican
     build: ./requirements/bonus/pelican
-    depends_on:
-      - wordpress
     restart: on-failure
     env_file:
       - .env
@@ -83,7 +84,19 @@ services:
       - wf:/var/www/html/
     networks:
       - web
+  
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/adminer
+    depends_on:
+      - mariadb
+    restart: on-failure
+    expose:
+      - "9000"
+    networks:
+      - web
 
+## VOLUMES
 volumes:
   db:
     driver: local
