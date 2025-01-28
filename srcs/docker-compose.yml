@@ -20,6 +20,8 @@ services:
     volumes:
       - wf:/var/www/html
     restart: on-failure
+    expose:
+      - "9000"
     depends_on:
       - mariadb # will compose mariadb first and remove wordpress before mariadb
     networks:
@@ -88,13 +90,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/root_user/data/db
+      device: /home/alexandra/data/db
   wf:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/root_user/data/wf
+      device: /home/alexandra/data/wf
 
 networks:
   web:

@@ -1,19 +1,12 @@
 Title: CV
 Author: Alexandra
 Date: 2025-01-22
+Category: cv, resume
 ---
-name: Alexandra Bokancha
-header:
-  - text: |
-      <span style="font-size: 1.2em; font-weight: bold;">    Etudiante a l’ecole 42, paris</span>
-  - text: <span class="iconify" data-icon="tabler:phone"></span> (+33) 52-91-44-16
-    newLine: true
-  - text: <span class="iconify" data-icon="tabler:mail"></span> bokanchaalexandra@gmail.com
-    link: mailto:bokanchaalexandra@gmail.com
-  - text: <span class="iconify" data-icon="tabler:brand-github"></span> bokanchik
-    link: https://github.com/bokanchik
-  - text: <span class="iconify" data-icon="charm:person"></span> LinkedIn 
-    link: www.linkedin.com/in/alexandrabokancha
+Alexandra Bokancha
+======
+#### Etudiante a l’ecole 42, Paris
+###### [ [bokanchik.github.io](https://github.com/bokanchik) ] . [ bokanchaalexandra@gmail.com ] . [ 06 52 91 44 16 ]
 ---
 
 <!-- Important: Replace all template content, especially contact details, with your own information. -->
@@ -56,7 +49,7 @@ gestion des processus et des descripteurs de fichiers.
 - Apprentissage des bases du threading dans un processus. Création
 et gestion de threads en C avec découverte des mutexes pour gérer la synchronisation entre plusieurs processus.
 
-- Ajout bonus :  mise en œuvre d'une gestion des ressources partagées via des sémaphores pour un environnement multi-processus.
+- Ajout de bonus :  mise en œuvre d'une gestion des ressources partagées via des sémaphores pour un environnement multi-processus.
 
 
 **ft_irc**

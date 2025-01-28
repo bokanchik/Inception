@@ -3,11 +3,11 @@ all:
 	make up
 
 build:
-	mkdir -p  /home/root_user/data/wf
-	mkdir -p  /home/root_user/data/db
+	mkdir -p  /home/alexandra/data/wf
+	mkdir -p  /home/alexandra/data/db
 
-	sudo chown -R 1000:1000 /home/root_user/data/wf
-	sudo chmod -R 775 /home/root_user/data/wf
+	sudo chown -R 1000:1000 /home/alexandra/data/wf
+	sudo chmod -R 775 /home/alexandra/data/wf
 
 
 	docker compose -f srcs/docker-compose.yml build

@@ -17,7 +17,9 @@ COPY tools/setup.sh .
 
 COPY tools/cv.md .
 
-COPY tools/cv.css .
+COPY tools/cv.css . 
+
+COPY tools/base.html .
 
 RUN chmod +x ./setup.sh
 
