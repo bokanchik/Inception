@@ -23,4 +23,4 @@ RUN chmod 777 ./wordpress.sh
 
 EXPOSE 9000
 
-CMD [ "./wordpress.sh" ]
+CMD [ "sh", "./wordpress.sh" ]

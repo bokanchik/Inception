@@ -1,0 +1,6 @@
+# .gitignore for Inception
+
+### Environment  ###
+.env                
+.vscode/            # Visual Studio Code settings
+.DS_Store           # macOS
